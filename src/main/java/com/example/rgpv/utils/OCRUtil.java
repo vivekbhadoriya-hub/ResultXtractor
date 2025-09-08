@@ -26,7 +26,7 @@ public class OCRUtil {
 
                 // Use Tesseract OCR
                 ITesseract tesseract = new Tesseract();
-                tesseract.setDatapath("C:\\Users\\vivek\\Testing\\RGPV AUTOMATION\\RgpvAutomation\\tesseract-main\\tessdata");
+                tesseract.setDatapath("C:\\Users\\vivek\\Testing\\ResultXtractor\\ResultXtractor\\tesseract-main\\tessdata");
                 tesseract.setLanguage("eng");
                 captchaText = tesseract.doOCR(dest);
 
@@ -36,7 +36,7 @@ public class OCRUtil {
                 captchaText = captchaText.toUpperCase();
 
                 // Validate captcha length (usually 4-5 chars)
-                if (captchaText.length() >= 4 && captchaText.length() <= 5) {
+                if (captchaText.length() >= 5 && captchaText.length() <= 5) {
                     System.out.println("Extracted CAPTCHA: " + captchaText);
                     return captchaText.trim();
                 } else {

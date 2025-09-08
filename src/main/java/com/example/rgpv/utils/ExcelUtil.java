@@ -7,8 +7,8 @@ import java.io.*;
 
 public class ExcelUtil {
 
-    private static String inputPath = "C:\\Users\\vivek\\Testing\\RGPV AUTOMATION\\RgpvAutomation\\src\\test\\resources\\rolls.xlsx";
-    private static String outputPath = "C:\\Users\\vivek\\Testing\\RGPV AUTOMATION\\RgpvAutomation\\src\\main\\resources\\testData\\results.xlsx";
+    private static String inputPath = "C:\\Users\\vivek\\Testing\\ResultXtractor\\ResultXtractor\\src\\test\\resources\\rolls.xlsx";
+    private static String outputPath = "C:\\Users\\vivek\\Testing\\ResultXtractor\\ResultXtractor\\src\\main\\resources\\testData\\results.xlsx";
 
     //read
     public static Object[][] getRollNumbers(String sheetName) throws IOException {

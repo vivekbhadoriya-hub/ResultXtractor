@@ -3,6 +3,7 @@ package com.example.rgpv.tests;
 import com.example.rgpv.pages.RgpvResultPage;
 import com.example.rgpv.utils.ExcelReader;
 import com.example.rgpv.utils.ExcelUtil;
+import com.example.rgpv.utils.RetryAnalyzer;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,7 +21,7 @@ public class RgpvResultTest {
     @DataProvider(name = "rolls")
     public Object[][] rolls() throws Exception {
         // Path to your Excel file with full roll numbers
-        String excelPath = "C:\\Users\\vivek\\Testing\\RGPV AUTOMATION\\RgpvAutomation\\src\\test\\resources\\rolls.xlsx";
+        String excelPath = "C:\\Users\\vivek\\Testing\\ResultXtractor\\ResultXtractor\\src\\test\\resources\\rolls.xlsx";
         List<String> rollList = excelReader.readRollNumbers(excelPath);
 
         Object[][] data = new Object[rollList.size()][1];
@@ -30,8 +31,7 @@ public class RgpvResultTest {
         return data;
     }
 
-
-    @Test(dataProvider = "rolls")
+    @Test(dataProvider = "rolls", retryAnalyzer = RetryAnalyzer.class) // <-- added retryAnalyzer
     public void fetchResult(String roll) throws Exception {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -40,6 +40,7 @@ public class RgpvResultTest {
 
         rgpvResultPage = new RgpvResultPage(driver);
 
+        try {
             String semester = "1";
             rgpvResultPage.clickMca2Year();
             Thread.sleep(1000);
@@ -51,10 +52,15 @@ public class RgpvResultTest {
             rgpvResultPage.validateClassHeader();
             String cgpa = rgpvResultPage.getCGPA(roll);
 
-        ExcelUtil.writeResult(roll, cgpa);
+            ExcelUtil.writeResult(roll, cgpa);
 
-        driver.quit();
-
+        } catch (Exception e) {
+            System.out.println("Test failed for roll: " + roll + " | Error: " + e.getMessage());
+            throw e; // rethrow so RetryAnalyzer can catch and rerun
+        } finally {
+            if (driver != null) {
+                driver.quit(); // ensure browser closes
+            }
+        }
     }
-
 }
