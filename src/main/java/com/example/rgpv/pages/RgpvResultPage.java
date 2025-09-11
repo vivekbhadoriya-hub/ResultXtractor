@@ -1,6 +1,5 @@
 package com.example.rgpv.pages;
 
-import com.example.rgpv.utils.ExcelUtil;
 import com.example.rgpv.utils.OCRUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +29,7 @@ public class RgpvResultPage {
     private By viewResultBtn = By.id("ctl00_ContentPlaceHolder1_btnviewresult");
     private By classHeader = By.className("resultheader");
     private By cgpaField = By.id("ctl00_ContentPlaceHolder1_lblcgpa");
+    private By nameField = By.id("ctl00_ContentPlaceHolder1_lblNameGrading");
 
 
 
@@ -65,11 +65,19 @@ public class RgpvResultPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(classHeader));
     }
 
-    public String getCGPA(String rollNo) {
+    public String getName() {
+        WebElement cgpaElement = wait.until(ExpectedConditions.visibilityOfElementLocated(nameField));
+        String name = cgpaElement.getText().trim();
+        System.out.print("Name: " + name);
+        return name;
+    }
+
+    public String getCGPA() {
         WebElement cgpaElement = wait.until(ExpectedConditions.visibilityOfElementLocated(cgpaField));
         String cgpa = cgpaElement.getText().trim();
-        System.out.println("Roll: " + rollNo + " → CGPA: " + cgpa);
+        System.out.print("CGPA: " + cgpa);
         return cgpa;
     }
+
 
 }

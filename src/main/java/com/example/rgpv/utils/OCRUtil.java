@@ -16,7 +16,7 @@ public class OCRUtil {
         String captchaText = "";
         int attempts = 0;
 
-        while (attempts < 5) {
+        while (attempts < 1) {
             try {
                 Thread.sleep(1000);
                 // Capture screenshot of CAPTCHA
@@ -35,13 +35,6 @@ public class OCRUtil {
                 captchaText = captchaText.replaceAll("[^a-zA-Z0-9]", "");
                 captchaText = captchaText.toUpperCase();
 
-                // Validate captcha length (usually 4-5 chars)
-                if (captchaText.length() >= 5 && captchaText.length() <= 5) {
-                    System.out.println("Extracted CAPTCHA: " + captchaText);
-                    return captchaText.trim();
-                } else {
-                    System.out.println("Invalid CAPTCHA (" + captchaText + "), retrying...");
-                }
 
             } catch (Exception e) {
                 System.out.println("OCR failed: " + e.getMessage());

@@ -17,10 +17,9 @@ public class ExcelReader {
         try (FileInputStream fis = new FileInputStream(new File(path));
              Workbook wb = new XSSFWorkbook(fis)) {
 
-            Sheet sheet = wb.getSheetAt(0); // Read the first sheet
+            Sheet sheet = wb.getSheetAt(0);
             Iterator<Row> rows = sheet.iterator();
 
-            // Skip header row (if you have column titles)
             if (rows.hasNext()) rows.next();
 
             while (rows.hasNext()) {

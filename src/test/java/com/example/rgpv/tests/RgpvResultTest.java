@@ -31,7 +31,7 @@ public class RgpvResultTest {
         return data;
     }
 
-    @Test(dataProvider = "rolls", retryAnalyzer = RetryAnalyzer.class) // <-- added retryAnalyzer
+    @Test(dataProvider = "rolls", retryAnalyzer = RetryAnalyzer.class)
     public void fetchResult(String roll) throws Exception {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -50,16 +50,17 @@ public class RgpvResultTest {
             Thread.sleep(3000);
             rgpvResultPage.clickViewResult();
             rgpvResultPage.validateClassHeader();
-            String cgpa = rgpvResultPage.getCGPA(roll);
+            String name = rgpvResultPage.getName();
+            String cgpa = rgpvResultPage.getCGPA();
 
-            ExcelUtil.writeResult(roll, cgpa);
+            ExcelUtil.writeResult("Sheet1", roll, name, semester, cgpa);
 
         } catch (Exception e) {
             System.out.println("Test failed for roll: " + roll + " | Error: " + e.getMessage());
-            throw e; // rethrow so RetryAnalyzer can catch and rerun
+            throw e;
         } finally {
             if (driver != null) {
-                driver.quit(); // ensure browser closes
+                driver.quit();
             }
         }
     }
