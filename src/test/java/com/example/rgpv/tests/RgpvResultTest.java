@@ -20,7 +20,7 @@ public class RgpvResultTest {
 
     @DataProvider(name = "rolls")
     public Object[][] rolls() throws Exception {
-        // Path to your Excel file with full roll numbers
+
         String excelPath = "C:\\Users\\vivek\\Testing\\ResultXtractor\\ResultXtractor\\src\\test\\resources\\rolls.xlsx";
         List<String> rollList = excelReader.readRollNumbers(excelPath);
 

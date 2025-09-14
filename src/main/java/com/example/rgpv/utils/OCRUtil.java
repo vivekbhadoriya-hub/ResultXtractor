@@ -42,6 +42,6 @@ public class OCRUtil {
             attempts++;
         }
 
-        return captchaText;  // return last attempt, even if invalid
+        return captchaText;
     }
 }
